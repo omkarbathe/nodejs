@@ -1,0 +1,18 @@
+
+when we import any external package the package.json save the version of 
+that package suppose we import express package and thast version is 4.18.1
+
+their is three part divided by dots
+
+the last part -> 1
+it means this us minor change in package it does not affect to code
+its up to you if you want update then update
+
+the mid part -> 18
+its recommanded update this increase when the chnage is major or any new functionality added
+
+
+the first part ->
+this is mandatory to update your version when the packge is updated
+coz the new version is added and perhaps your code won't work after this
+so you should update .

@@ -1,24 +1,37 @@
-const http = require("http");
-const {add } =require("./ExModule");
-const fs = require("fs");
-const url = require("url");
+// const users = require("./MOCK_DATA.json");
+const express = require("express");
+const fs= require("fs");
+const connectMongoDb = require("./connection");
+const userRouter = require("./routes/user")
+
+const app = express();
+
+// connection
+connectMongoDb("mongodb://127.0.0.1:27017/demo").then(()=>{
+  console.log("Mongo db connected")
+});
 
 
-fs.writeFile("./hello.txt", "this is practice" , (err) => {
-console.log(err);
-})
+// mongoose.connect("mongodb://127.0.0.1:27017/demo").then(()=>{
+//   console.log("Mongoose connected");
 
-http.createServer((req,res)=>{
-    // console.log(req);
-    // console.log(add);
-   switch(req.url){
-    case "/":
-        res.end("homepage");
-        break;
-    case "/about":
-        res.end("this is about page");    
-   }
-   
+// }).catch(err => console.log(err));
 
-    // res.end("hello");
-}).listen(8000);
+
+
+app.use(express.urlencoded({extended:false}));
+
+
+// custom middleware
+// app.use((req,res,next)=>{
+//    console.log("hello");
+//    next();//giving task to next middleware or function
+// })
+
+// routes
+// this router use userrouter for sending responce
+app.use("/user" , userRouter);
+
+app.listen(8000,()=>{
+  console.log(`server started on port 8000`);
+});
